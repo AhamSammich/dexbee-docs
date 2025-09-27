@@ -1,0 +1,11 @@
+---
+export interface Props {
+  className?: string
+}
+
+const { className = 'w-6 h-6' } = Astro.props
+---
+
+<div class={`relative ${className}`}>
+  <img src="/images/dexbee-logo.png" alt="DexBee Logo" class="w-full h-full object-contain" />
+</div>

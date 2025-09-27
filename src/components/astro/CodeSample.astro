@@ -1,0 +1,52 @@
+---
+import { CodeEditor } from '../react/CodeEditor'
+
+const sampleCode = `// Complex query with familiar SQL patterns
+const results = await db.table('orders')
+    .select('id', 'customer_name', 'created_at', 'total')
+    .where('status', '=', 'completed')
+    .where('total', '>', 100)
+    .orderBy('created_at', 'desc')
+    .limit(50)
+
+// Fully typed, fully declarative, fully optimized
+console.log('Found', results.length, 'orders')
+results.forEach(order => {
+    console.log(\`Order \${order.id}: \${order.customer_name} - $\${order.total}\`)
+})`
+---
+
+<section id="code-sample" class="py-20">
+  <div class="container mx-auto px-4">
+    <div class="text-center">
+      <h3 class="text-3xl lg:text-4xl font-bold mb-4">A Bridge Between SQL and IndexedDB</h3>
+      <p class="text-xl text-muted-foreground text-balance max-w-2xl mx-auto mb-16">
+        DexBee translates your SQL knowledge into powerful IndexedDB queries. Write the way you think.
+      </p>
+
+      <div class="max-w-4xl mx-auto">
+        <div class="bg-card/50 rounded-lg border border-border p-6 text-left">
+          <div class="flex items-center gap-2 mb-4">
+            <div class="flex gap-1">
+              <div class="w-3 h-3 rounded-full bg-red-500"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <span class="text-sm font-medium text-primary">DexBee Query Example</span>
+          </div>
+
+          <div class="h-96">
+            <CodeEditor
+              client:load
+              value={sampleCode}
+              onChange={code => console.log('Code changed:', code)}
+              onExecute={code => console.log('Executing:', code)}
+              onSave={code => console.log('Saving:', code)}
+              height="350px"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

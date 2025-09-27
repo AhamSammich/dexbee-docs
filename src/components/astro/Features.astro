@@ -1,0 +1,44 @@
+---
+import HexGrid from './HexGrid.astro'
+
+const features = [
+  {
+    icon: '🗃️',
+    title: 'SQL-First Query Builder',
+    description:
+      'Write complex queries using familiar SQL operators like eq(), gt(), between(), and nested and()/or() conditions.',
+  },
+  {
+    icon: '🛡️',
+    title: 'Advanced Type Safety',
+    description:
+      'Full TypeScript integration with compile-time validation and intelligent type narrowing on select() operations.',
+  },
+  {
+    icon: '⚡',
+    title: 'Intelligent Query Optimization',
+    description:
+      'Hybrid execution strategy that leverages IndexedDB indexes when possible, with seamless client-side filtering fallback.',
+  },
+  {
+    icon: '🔄',
+    title: 'Local-First Ready',
+    description:
+      'Built for applications where IndexedDB is the primary data source, not just a cache—enabling instant, offline-capable experiences.',
+  },
+]
+---
+
+<section id="features" class="py-20 bg-muted/50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4">Your SQL Knowledge, Browser-Ready</h2>
+      <p class="text-xl text-muted-foreground text-balance max-w-2xl mx-auto">
+        DexBee bridges the gap between server-side database expertise and browser data storage, making IndexedDB as
+        familiar as PostgreSQL.
+      </p>
+    </div>
+
+    <HexGrid content={features} />
+  </div>
+</section>

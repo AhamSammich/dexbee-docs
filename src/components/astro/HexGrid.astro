@@ -1,0 +1,215 @@
+---
+import HexagonSvg from './HexagonSvg.astro'
+
+interface Props {
+  content: {
+    icon: string
+    title: string
+    description: string
+  }[]
+}
+
+const props = Astro.props
+---
+
+<div class="honeycomb-container">
+  {
+    props.content.map(content => (
+      <div class="honeycomb-cell">
+        <HexagonSvg fill="var(--color-card)" />
+        <div class="honeycomb-content">
+          <div class="icon absolute -top-4 inset-x-0">{content.icon}</div>
+          <h3 class="text-balance">{content.title}</h3>
+          <p class="text-sm! max-w-prose min-w-[120px]">{content.description}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style is:global>
+  /* Honeycomb card layout with absolute positioning */
+  .honeycomb-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    /* Height calculated for 4 hexagons in proper honeycomb pattern */
+    height: 660px;
+
+    @media (min-width: 480px) {
+      height: 580px;
+    }
+  }
+
+  /* Individual hexagonal cells with absolute positioning */
+  .honeycomb-cell {
+    position: absolute;
+    top: 0;
+    margin: 0 auto;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+
+    @media (min-width: 768px) {
+      scale: 1.2;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      transition: all 0.3s ease;
+    }
+  }
+
+  /* Hexagon SVG styling */
+  .honeycomb-cell svg {
+    width: 100%;
+    height: 100%;
+    scale: 0.9;
+    filter: drop-shadow(0 1px 8px color-mix(in oklch, var(--color-primary), transparent 85%));
+
+    @media (min-width: 480px) {
+      scale: 1;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: all 0.3s ease;
+    }
+  }
+
+  .honeycomb-cell:hover svg {
+    filter: drop-shadow(0 6px 20px color-mix(in oklch, var(--color-primary), transparent 75%));
+    transform: scale(1.05);
+  }
+
+  .honeycomb-cell:hover svg path {
+    fill: color-mix(in oklch, var(--color-accent), transparent 80%);
+    stroke: color-mix(in oklch, var(--color-primary), transparent 40%);
+  }
+
+  /* Positioning for honeycomb pattern */
+  .honeycomb-cell:nth-child(1) {
+    inset: auto 0;
+    transform: translateY(-35%) translateX(-25%);
+  }
+
+  .honeycomb-cell:nth-child(2) {
+    inset: auto 0;
+    transform: translateY(105%) translateX(-25%);
+  }
+
+  .honeycomb-cell:nth-child(3) {
+    inset: auto 0;
+    transform: translateY(35%) translateX(25%);
+  }
+
+  .honeycomb-cell:nth-child(4) {
+    inset: auto 0;
+    transform: translateY(175%) translateX(25%);
+  }
+
+  @media (min-width: 480px) {
+    .honeycomb-cell:nth-child(1) {
+      inset: auto 0;
+      transform: translateY(-25%);
+    }
+
+    .honeycomb-cell:nth-child(2) {
+      inset: auto 0;
+      transform: translateY(55%) translateX(-52.5%);
+    }
+
+    .honeycomb-cell:nth-child(3) {
+      inset: auto 0;
+      transform: translateY(55%) translateX(52.5%);
+    }
+
+    .honeycomb-cell:nth-child(4) {
+      inset: auto 0;
+      transform: translateY(135%);
+    }
+
+    @media (max-width: 640px) {
+      .honeycomb-cell:nth-child(1) {
+        inset: auto 0;
+        transform: translateY(-25%);
+      }
+
+      .honeycomb-cell:nth-child(2) {
+        inset: auto 0;
+        transform: translateY(55%) translateX(-52.5%);
+      }
+
+      .honeycomb-cell:nth-child(3) {
+        inset: auto 0;
+        transform: translateY(55%) translateX(52.5%);
+      }
+
+      .honeycomb-cell:nth-child(4) {
+        inset: auto 0;
+        transform: translateY(135%);
+      }
+    }
+  }
+
+  /* Responsive positioning adjustments */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+    .honeycomb-cell:nth-child(1) {
+      inset: auto 0;
+      transform: translateY(0%) translateX(-75%);
+    }
+
+    .honeycomb-cell:nth-child(2) {
+      inset: auto 0;
+      transform: translateY(80%) translateX(-25%);
+    }
+
+    .honeycomb-cell:nth-child(3) {
+      inset: auto 0;
+      transform: translateY(0%) translateX(30%);
+    }
+
+    .honeycomb-cell:nth-child(4) {
+      inset: auto 0;
+      transform: translateY(80%) translateX(80%);
+    }
+  }
+
+  /* Content inside hexagonal cells */
+  .honeycomb-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 70%;
+    padding: 1rem;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .honeycomb-content h3 {
+    font-size: 0.9rem;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .honeycomb-content p {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    color: var(--color-muted-foreground);
+  }
+
+  .honeycomb-content .icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+</style>

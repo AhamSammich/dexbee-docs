@@ -1,0 +1,25 @@
+---
+import CodeSample from '../components/astro/CodeSample.astro'
+import Features from '../components/astro/Features.astro'
+import Footer from '../components/astro/Footer.astro'
+import Header from '../components/astro/Header.astro'
+import Hero from '../components/astro/Hero.astro'
+import QuickStart from '../components/astro/QuickStart.astro'
+import UseCases from '../components/astro/UseCases.astro'
+import Layout from '../layouts/Layout.astro'
+import '../styles/global.css'
+---
+
+<Layout title="DexBee - The SQL-like ORM for the Browser">
+  <div class="min-h-screen bg-background honeycomb-bg">
+    <main>
+      <Header />
+      <Hero />
+      <Features />
+      <CodeSample />
+      <UseCases />
+      <QuickStart />
+    </main>
+    <Footer />
+  </div>
+</Layout>

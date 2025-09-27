@@ -1,0 +1,24 @@
+---
+interface Props {
+  className?: string
+  fill?: string
+  stroke?: string
+  strokeWidth?: string
+}
+
+const {
+  className = '',
+  fill = 'var(--color-secondary)',
+  stroke = 'color-mix(in oklch, var(--color-primary), transparent 70%)',
+  strokeWidth = '0',
+} = Astro.props
+---
+
+<svg viewBox="0 0 150 150" xmlns="http://www.w3.org/2000/svg" class={className} preserveAspectRatio="xMidYMid meet">
+  <path
+    d="M75 0L150 37.5V112.5L75 150L0 112.5V37.5L75 0Z"
+    fill={fill}
+    stroke={stroke}
+    stroke-width={strokeWidth}
+  ></path>
+</svg>

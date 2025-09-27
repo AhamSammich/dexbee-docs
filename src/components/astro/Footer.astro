@@ -1,0 +1,61 @@
+---
+import BeeIcon from './BeeIcon.astro'
+---
+
+<footer class="border-t border-border/50 bg-card/30 backdrop-blur-sm">
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-2 mb-4">
+          <BeeIcon className="w-6 h-6 text-primary" />
+          <span class="text-lg font-bold">DexBee</span>
+        </div>
+        <p class="text-muted-foreground mb-4 max-w-md">
+          The TypeScript IndexedDB ORM that transforms complex browser database operations into clean, Promise-based
+          interfaces.
+        </p>
+        <p class="text-sm text-muted-foreground">Built with ❤️ for the JavaScript community</p>
+      </div>
+
+      <div>
+        <h3 class="font-semibold mb-4">Documentation</h3>
+        <ul class="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <a href="#" class="hover:text-foreground transition-colors"> Getting Started </a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-foreground transition-colors"> API Reference </a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-foreground transition-colors"> Examples </a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-foreground transition-colors"> Migration Guide </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-semibold mb-4">Community</h3>
+        <ul class="space-y-2 text-sm text-muted-foreground">
+          <li>
+            <a href="#" class="hover:text-foreground transition-colors"> GitHub </a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-foreground transition-colors"> Discord </a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-foreground transition-colors"> Twitter </a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-foreground transition-colors"> Discussions </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-border/50 mt-8 pt-8 text-center text-sm text-muted-foreground">
+      <p>&copy; 2025 DexBee. MIT License.</p>
+    </div>
+  </div>
+</footer>

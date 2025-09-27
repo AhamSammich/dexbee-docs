@@ -1,0 +1,51 @@
+---
+import '../styles/global.css'
+
+export interface Props {
+  title: string
+  description?: string
+}
+
+const {
+  title,
+  description = 'The SQL-like ORM for the Browser. DexBee brings the familiar power of SQL query builders to IndexedDB with declarative, composable queries and superior TypeScript integration.',
+} = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <!-- Preload critical fonts -->
+    <link
+      rel="preload"
+      href="/@fontsource/geist-sans/files/geist-sans-latin-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/@fontsource/geist-mono/files/geist-mono-latin-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- Theme script to prevent flash -->
+    <script is:inline>
+  const theme
+    = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+  document.documentElement.classList.toggle('dark', theme === 'dark')
+  </script>
+  </head>
+  <body class="font-sans bg-background text-foreground">
+    <slot />
+  </body>
+</html>

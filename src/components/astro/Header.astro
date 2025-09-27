@@ -1,0 +1,36 @@
+---
+import BeeIcon from './BeeIcon.astro'
+---
+
+<header class="border-b border-border/50 bg-background/80 backdrop-blur-sm sticky top-0 z-50">
+  <div class="container mx-auto px-4 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <BeeIcon className="w-10 h-10 text-primary" />
+      <span class="text-xl font-bold text-foreground">DexBee</span>
+    </div>
+
+    <nav class="hidden md:flex items-center gap-6">
+      <a href="#features" class="text-muted-foreground hover:text-foreground transition-colors"> Features </a>
+      <a href="#docs" class="text-muted-foreground hover:text-foreground transition-colors"> Docs </a>
+      <a href="#examples" class="text-muted-foreground hover:text-foreground transition-colors"> Examples </a>
+      <a href="https://github.com/dexbee/dexbee" class="text-muted-foreground hover:text-foreground transition-colors">
+        GitHub
+      </a>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <a
+        href="#docs"
+        class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors border border-input bg-transparent hover:bg-accent hover:text-accent-foreground h-9 px-4"
+      >
+        Docs
+      </a>
+      <a
+        href="#get-started"
+        class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4"
+      >
+        Get Started
+      </a>
+    </div>
+  </div>
+</header>

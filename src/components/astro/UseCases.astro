@@ -1,0 +1,52 @@
+---
+const useCases = [
+  {
+    title: 'Local-First Collaborative Apps',
+    description:
+      'Build applications where IndexedDB is the primary database, not just a cache. Create instantaneous experiences with zero loading states.',
+    example: 'Design tools like Figma, document editors, team workspaces',
+  },
+  {
+    title: 'High-Performance Caching',
+    description:
+      'Transform traditional web apps with intelligent data caching. Use complex queries to filter and sort cached API responses client-side.',
+    example: 'E-commerce catalogs, analytics dashboards, social feeds',
+  },
+  {
+    title: 'Privacy-First Applications',
+    description:
+      'Keep sensitive user data on-device by default. Build apps where server storage is optional, not required.',
+    example: 'Personal finance trackers, health journals, private note-taking',
+  },
+  {
+    title: 'AI-Powered Edge Applications',
+    description:
+      'Store and query large datasets for machine learning models running in the browser. Enable real-time AI without server latency.',
+    example: 'On-device recommendation engines, personalization models',
+  },
+]
+---
+
+<section id="use-cases" class="py-20 bg-muted/50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h3 class="text-3xl lg:text-4xl font-bold mb-4">Professional-Grade Browser Database</h3>
+      <p class="text-xl text-muted-foreground text-balance max-w-3xl mx-auto">
+        DexBee brings the power and familiarity of SQL-like queries to IndexedDB, enabling fast, reliable, and
+        privacy-focused applications.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {
+        useCases.map(useCase => (
+          <div class="bg-card rounded-lg border border-border p-6">
+            <h4 class="text-xl font-semibold mb-3">{useCase.title}</h4>
+            <p class="text-muted-foreground mb-4 leading-relaxed">{useCase.description}</p>
+            <div class="text-sm text-primary font-medium">Examples: {useCase.example}</div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

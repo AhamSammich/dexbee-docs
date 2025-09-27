@@ -1,0 +1,87 @@
+<!-- Quick Start Section -->
+<section id="code-sample" class="py-20">
+  <div class="container mx-auto px-4">
+    <div class="text-center">
+      <h3 class="text-3xl lg:text-4xl font-bold mb-4">Start building in seconds</h3>
+      <p class="text-xl text-muted-foreground mb-16">Get up and running with DexBee in just a few simple steps.</p>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto text-left">
+        <div class="bg-card rounded-lg border border-border p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <div
+              class="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold"
+            >
+              1
+            </div>
+            <span class="text-lg font-semibold">Install DexBee</span>
+          </div>
+          <p class="text-muted-foreground mb-4">Get started in seconds with npm or yarn</p>
+          <div class="bg-muted rounded p-3">
+            <code class="text-sm">npm install dexbee</code>
+          </div>
+        </div>
+
+        <div class="bg-card rounded-lg border border-border p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <div
+              class="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold"
+            >
+              2
+            </div>
+            <span class="text-lg font-semibold">Define Your Schema</span>
+          </div>
+          <p class="text-muted-foreground mb-4">Create type-safe database schemas</p>
+          <div class="bg-slate-50 border border-slate-200 rounded p-3">
+            <div class="text-sm text-slate-700 font-mono whitespace-pre-wrap">
+              {
+                `const db = new DexBee('myapp')
+.schema({
+    users: '++id, name, email',
+    posts: '++id, title, content'
+});`
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-card rounded-lg border border-border p-6">
+          <div class="flex items-center gap-2 mb-4">
+            <div
+              class="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-sm font-bold"
+            >
+              3
+            </div>
+            <span class="text-lg font-semibold">Start Querying</span>
+          </div>
+          <p class="text-muted-foreground mb-4">Use familiar SQL-like syntax</p>
+          <div class="bg-slate-50 border border-slate-200 rounded p-3">
+            <div class="text-sm text-slate-700 font-mono whitespace-pre-wrap">
+              {
+                `const users = await db
+.from('users')
+.where('email', 'like', '%@company.com')
+.orderBy('name')
+.limit(10);`
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="#docs"
+          class="inline-flex items-center justify-center rounded-md text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-8"
+        >
+          View Full Documentation →
+        </a>
+        <a
+          href="#github"
+          class="inline-flex items-center justify-center rounded-md text-sm font-medium border border-input bg-transparent hover:bg-accent hover:text-accent-foreground h-11 px-8"
+        >
+          🐝 View on GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

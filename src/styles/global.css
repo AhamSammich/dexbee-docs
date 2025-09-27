@@ -1,0 +1,112 @@
+@import 'tailwindcss';
+
+/* Font imports */
+@import '@fontsource/geist-sans/400.css';
+@import '@fontsource/geist-mono/400.css';
+
+/* Tailwind v4 theme configuration */
+@theme {
+  --color-background: oklch(0.98 0.005 120);
+  --color-foreground: oklch(0.09 0.005 120);
+  --color-card: oklch(0.96 0.01 120);
+  --color-card-foreground: oklch(0.09 0.005 120);
+  --color-popover: oklch(0.96 0.01 120);
+  --color-popover-foreground: oklch(0.09 0.005 120);
+  --color-primary: oklch(0.55 0.2 45);
+  --color-primary-foreground: oklch(0.98 0.005 120);
+  --color-secondary: oklch(0.94 0.02 120);
+  --color-secondary-foreground: oklch(0.09 0.005 120);
+  --color-muted: oklch(0.95 0.01 120);
+  --color-muted-foreground: oklch(0.45 0.02 120);
+  --color-accent: oklch(0.65 0.18 50);
+  --color-accent-foreground: oklch(0.98 0.005 120);
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-destructive-foreground: oklch(0.577 0.245 27.325);
+  --color-border: oklch(0.89 0.02 120);
+  --color-input: oklch(0.89 0.02 120);
+  --color-ring: oklch(0.65 0.18 50);
+  --radius: 0.625rem;
+}
+
+.dark {
+  --color-background: oklch(0.08 0.01 240);
+  --color-foreground: oklch(0.95 0.01 240);
+  --color-card: oklch(0.12 0.01 240);
+  --color-card-foreground: oklch(0.95 0.01 240);
+  --color-popover: oklch(0.12 0.01 240);
+  --color-popover-foreground: oklch(0.95 0.01 240);
+  --color-primary: oklch(0.65 0.18 60);
+  --color-primary-foreground: oklch(0.08 0.01 240);
+  --color-secondary: oklch(0.18 0.01 240);
+  --color-secondary-foreground: oklch(0.95 0.01 240);
+  --color-muted: oklch(0.18 0.01 240);
+  --color-muted-foreground: oklch(0.65 0.02 240);
+  --color-accent: oklch(0.65 0.18 60);
+  --color-accent-foreground: oklch(0.08 0.01 240);
+  --color-destructive: oklch(0.55 0.22 25);
+  --color-destructive-foreground: oklch(0.95 0.01 240);
+  --color-border: oklch(0.22 0.01 240);
+  --color-input: oklch(0.22 0.01 240);
+  --color-ring: oklch(0.65 0.18 60);
+}
+
+@layer base {
+  body {
+    font-family: 'Geist Sans', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'Geist Mono', monospace;
+  }
+}
+
+/* Honeycomb pattern background */
+.honeycomb-bg {
+  position: relative;
+  background: var(--color-background);
+}
+
+.honeycomb-bg::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Beautiful honeycomb background image */
+  background-image: url('/images/bg-honeycomb.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  /* Low opacity for subtle background effect */
+  opacity: 0.05;
+  filter: blur(3px);
+  /* Subtle radial fade mask for softer edges */
+  mask: radial-gradient(ellipse 100% 80% at center, black 40%, transparent 90%);
+  -webkit-mask: radial-gradient(ellipse 100% 80% at center, black 40%, transparent 90%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Note: Animation removed since we're using a static background image */
+
+.honeycomb-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Floating animation for bee */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
