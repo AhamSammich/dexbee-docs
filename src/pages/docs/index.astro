@@ -1,0 +1,149 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Prose from '../../components/docs/Prose.astro';
+---
+
+<DocsLayout title="DexBee Documentation" description="Complete documentation for DexBee TypeScript IndexedDB ORM">
+  <div class="max-w-4xl">
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold mb-4">DexBee Documentation</h1>
+      <p class="text-lg text-muted-foreground leading-relaxed">
+        Welcome to the DexBee documentation. DexBee is a powerful TypeScript IndexedDB ORM that brings SQL-like query syntax to client-side databases in web applications.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <!-- Getting Started -->
+      <div class="border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+        <div class="flex items-center mb-3">
+          <span class="text-2xl mr-3">🚀</span>
+          <h3 class="text-lg font-semibold">Getting Started</h3>
+        </div>
+        <p class="text-muted-foreground mb-4">
+          Learn the basics and get up and running with DexBee quickly.
+        </p>
+        <div class="space-y-2">
+          <a href="/docs/introduction" class="block text-primary hover:underline">
+            Introduction to DexBee
+          </a>
+          <a href="/docs/installation" class="block text-primary hover:underline">
+            Installation & Setup
+          </a>
+        </div>
+      </div>
+
+      <!-- Guides -->
+      <div class="border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+        <div class="flex items-center mb-3">
+          <span class="text-2xl mr-3">📚</span>
+          <h3 class="text-lg font-semibold">Guides</h3>
+        </div>
+        <p class="text-muted-foreground mb-4">
+          Step-by-step guides for common tasks and patterns.
+        </p>
+        <div class="space-y-2">
+          <a href="/docs/queries" class="block text-primary hover:underline">
+            Basic Queries
+          </a>
+        </div>
+      </div>
+
+      <!-- API Reference -->
+      <div class="border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+        <div class="flex items-center mb-3">
+          <span class="text-2xl mr-3">⚡</span>
+          <h3 class="text-lg font-semibold">API Reference</h3>
+        </div>
+        <p class="text-muted-foreground mb-4">
+          Complete API documentation with examples and type definitions.
+        </p>
+        <div class="space-y-2">
+          <a href="/docs/api-database" class="block text-primary hover:underline">
+            Database API
+          </a>
+        </div>
+      </div>
+
+      <!-- Examples -->
+      <div class="border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
+        <div class="flex items-center mb-3">
+          <span class="text-2xl mr-3">💡</span>
+          <h3 class="text-lg font-semibold">Examples</h3>
+        </div>
+        <p class="text-muted-foreground mb-4">
+          Real-world examples and code samples.
+        </p>
+        <div class="space-y-2">
+          <a href="/docs/examples" class="block text-primary hover:underline">
+            Code Examples
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Start -->
+    <div class="border border-border rounded-lg p-6 mb-8">
+      <h2 class="text-2xl font-semibold mb-4">Quick Start</h2>
+      <Prose>
+        <p>Get started with DexBee in just a few minutes:</p>
+        
+        <pre><code class="language-bash">pnpm add dexbee-js</code></pre>
+        
+        <pre><code class="language-typescript">{`import { DexBee, eq } from 'dexbee-js';
+
+// Define schema
+const schema = {
+  version: 1,
+  tables: {
+    users: {
+      schema: {
+        id: { type: 'number', required: true },
+        name: { type: 'string', required: true },
+        email: { type: 'string', unique: true }
+      },
+      primaryKey: 'id',
+      autoIncrement: true
+    }
+  }
+};
+
+// Connect and use
+const db = await DexBee.connect('myapp', schema);
+const users = await db.table('users')
+  .where(eq('name', 'John'))
+  .all();`}</code></pre>
+      </Prose>
+    </div>
+
+    <!-- Features Highlight -->
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="text-xl font-semibold mb-3">🔍 SQL-Like Queries</h3>
+        <p class="text-muted-foreground">
+          Write familiar SQL-like queries with full TypeScript support and IntelliSense.
+        </p>
+      </div>
+      
+      <div>
+        <h3 class="text-xl font-semibold mb-3">🛠️ Type Safety</h3>
+        <p class="text-muted-foreground">
+          Full TypeScript integration with compile-time error checking and auto-completion.
+        </p>
+      </div>
+      
+      <div>
+        <h3 class="text-xl font-semibold mb-3">🚀 Modern Architecture</h3>
+        <p class="text-muted-foreground">
+          Built with modern JavaScript features, tree-shakeable, and optimized for performance.
+        </p>
+      </div>
+      
+      <div>
+        <h3 class="text-xl font-semibold mb-3">🔄 Migrations</h3>
+        <p class="text-muted-foreground">
+          Schema evolution and data transformation with automatic migration generation.
+        </p>
+      </div>
+    </div>
+  </div>
+</DocsLayout>

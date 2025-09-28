@@ -1,0 +1,93 @@
+---
+import Layout from './Layout.astro';
+import DocsNavigation from '../components/docs/DocsNavigation.astro';
+import DocsHeader from '../components/docs/DocsHeader.astro';
+import Prose from '../components/docs/Prose.astro';
+import { getCollection } from 'astro:content';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  frontmatter?: {
+    title: string;
+    description: string;
+    category: string;
+  };
+}
+
+const { title, description, frontmatter } = Astro.props;
+
+// Get all docs for navigation
+const allDocs = await getCollection('docs', (entry) => !entry.data.draft);
+
+// Sort docs by category and order
+const sortedDocs = allDocs.sort((a, b) => {
+  // First sort by category order
+  const categoryOrder = ['getting-started', 'guides', 'api', 'examples', 'migration'];
+  const aCategoryIndex = categoryOrder.indexOf(a.data.category);
+  const bCategoryIndex = categoryOrder.indexOf(b.data.category);
+  
+  if (aCategoryIndex !== bCategoryIndex) {
+    return aCategoryIndex - bCategoryIndex;
+  }
+  
+  // Then by order within category
+  return a.data.order - b.data.order;
+});
+
+const pageTitle = title || frontmatter?.title || 'Documentation';
+const pageDescription = description || frontmatter?.description || 'DexBee Documentation';
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <div class="min-h-screen bg-background">
+    <DocsHeader currentPath={Astro.url.pathname} />
+
+    <div class="container flex-1 items-start md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10">
+      <!-- Sidebar Navigation -->
+      <aside class="fixed top-16 z-30 -ml-2 hidden h-[calc(100vh-4rem)] w-full shrink-0 md:sticky md:block">
+        <div class="scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border hover:scrollbar-thumb-border/80 h-full py-6 pl-8 pr-6 overflow-y-auto">
+          <DocsNavigation docs={sortedDocs} />
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+        <div class="mx-auto w-full min-w-0">
+          <div class="mb-4 flex items-center space-x-1 text-sm text-muted-foreground">
+            <a href="/docs/" class="overflow-hidden text-ellipsis hover:text-foreground">Docs</a>
+            {frontmatter?.category && (
+              <>
+                <span>/</span>
+                <span class="capitalize">{frontmatter.category.replace('-', ' ')}</span>
+              </>
+            )}
+          </div>
+          <Prose>
+            <slot />
+          </Prose>
+          
+          <!-- Page Navigation -->
+          <div class="flex flex-row items-center justify-between pt-8 mt-8 border-t border-border">
+            <div class="flex flex-col space-y-1">
+              <!-- Previous page logic would go here -->
+            </div>
+            <div class="flex flex-col space-y-1 text-right">
+              <!-- Next page logic would go here -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- Table of Contents (placeholder for future implementation) -->
+        <div class="hidden text-sm xl:block">
+          <div class="sticky top-16 -mt-10 pt-4">
+            <div class="space-y-2">
+              <p class="font-medium">On This Page</p>
+              <!-- TOC would be generated here -->
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</Layout>

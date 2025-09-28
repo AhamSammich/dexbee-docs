@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
 /* Font imports - HanaDB Theme */
 @import '@fontsource/inter/400.css';
@@ -89,6 +90,23 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
     font-variation-settings: normal;
+  }
+
+  /* Shiki dual theme support - colors only, no backgrounds on individual spans */
+  .astro-code span {
+    color: var(--shiki-light) !important;
+    background-color: transparent !important;
+    font-style: var(--shiki-light-font-style) !important;
+    font-weight: var(--shiki-light-font-weight) !important;
+    text-decoration: var(--shiki-light-text-decoration) !important;
+  }
+
+  .dark .astro-code span {
+    color: var(--shiki-dark) !important;
+    background-color: transparent !important;
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
   }
 
   .font-mono {

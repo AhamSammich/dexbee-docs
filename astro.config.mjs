@@ -10,6 +10,15 @@ export default defineConfig({
   build: {
     inlineStylesheets: 'auto',
   },
+  markdown: {
+    shikiConfig: {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      wrap: false,
+    },
+  },
   vite: {
     plugins: [tailwind()],
     ssr: {
