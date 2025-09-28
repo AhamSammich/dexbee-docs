@@ -1,62 +1,117 @@
 @import 'tailwindcss';
 
-/* Font imports */
-@import '@fontsource/geist-sans/400.css';
-@import '@fontsource/geist-mono/400.css';
+/* Font imports - HanaDB Theme */
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
 
-/* Tailwind v4 theme configuration */
+/* Tailwind v4 theme configuration with HanaDB colors */
 @theme {
-  --color-background: oklch(0.98 0.005 120);
-  --color-foreground: oklch(0.09 0.005 120);
-  --color-card: oklch(0.96 0.01 120);
-  --color-card-foreground: oklch(0.09 0.005 120);
-  --color-popover: oklch(0.96 0.01 120);
-  --color-popover-foreground: oklch(0.09 0.005 120);
-  --color-primary: oklch(0.55 0.2 45);
-  --color-primary-foreground: oklch(0.98 0.005 120);
-  --color-secondary: oklch(0.94 0.02 120);
-  --color-secondary-foreground: oklch(0.09 0.005 120);
-  --color-muted: oklch(0.95 0.01 120);
-  --color-muted-foreground: oklch(0.45 0.02 120);
-  --color-accent: oklch(0.65 0.18 50);
-  --color-accent-foreground: oklch(0.98 0.005 120);
-  --color-destructive: oklch(0.577 0.245 27.325);
-  --color-destructive-foreground: oklch(0.577 0.245 27.325);
-  --color-border: oklch(0.89 0.02 120);
-  --color-input: oklch(0.89 0.02 120);
-  --color-ring: oklch(0.65 0.18 50);
-  --radius: 0.625rem;
+  /* HanaDB Core Colors */
+  --color-hanadb-sakura-pink: oklch(0.82 0.1 15); /* #FFB7B2 */
+  --color-hanadb-blossom-white: oklch(0.98 0.02 30); /* #FFF4F0 */
+  --color-hanadb-bee-yellow: oklch(0.9 0.15 85); /* #FFD700 */
+  --color-hanadb-bee-black: oklch(0.25 0.01 270); /* #232323 */
+  --color-hanadb-leaf-green: oklch(0.85 0.1 135); /* #BDE4A7 */
+  --color-hanadb-sky-blue: oklch(0.75 0.08 230); /* #A4C3E6 */
+  
+  /* HanaDB Hanafuda Accents */
+  --color-hanadb-hanafuda-red: oklch(0.6 0.2 25); /* #E64136 */
+  --color-hanadb-hanafuda-gold: oklch(0.8 0.12 70); /* #FDB863 */
+  --color-hanadb-hanafuda-purple: oklch(0.75 0.1 300); /* #C4A7E7 */
+  
+  /* Semantic Mappings with HanaDB Palette */
+  --color-background: var(--color-hanadb-blossom-white);
+  --color-foreground: var(--color-hanadb-bee-black);
+  --color-card: oklch(0.97 0.01 30);
+  --color-card-foreground: var(--color-hanadb-bee-black);
+  --color-popover: var(--color-hanadb-blossom-white);
+  --color-popover-foreground: var(--color-hanadb-bee-black);
+  --color-primary: var(--color-hanadb-sakura-pink);
+  --color-primary-foreground: var(--color-hanadb-bee-black);
+  --color-secondary: var(--color-hanadb-bee-yellow);
+  --color-secondary-foreground: var(--color-hanadb-bee-black);
+  --color-muted: oklch(0.94 0.02 30);
+  --color-muted-foreground: oklch(0.5 0.02 270);
+  --color-accent: var(--color-hanadb-leaf-green);
+  --color-accent-foreground: var(--color-hanadb-bee-black);
+  --color-destructive: var(--color-hanadb-hanafuda-red);
+  --color-destructive-foreground: var(--color-hanadb-blossom-white);
+  --color-border: oklch(0.89 0.05 15);
+  --color-input: oklch(0.89 0.05 15);
+  --color-ring: var(--color-hanadb-sakura-pink);
+  --radius: 0.75rem; /* Slightly more rounded for floral softness */
+  
+  /* Font family definitions for Tailwind */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
 }
 
 .dark {
-  --color-background: oklch(0.08 0.01 240);
-  --color-foreground: oklch(0.95 0.01 240);
-  --color-card: oklch(0.12 0.01 240);
-  --color-card-foreground: oklch(0.95 0.01 240);
-  --color-popover: oklch(0.12 0.01 240);
-  --color-popover-foreground: oklch(0.95 0.01 240);
-  --color-primary: oklch(0.65 0.18 60);
-  --color-primary-foreground: oklch(0.08 0.01 240);
-  --color-secondary: oklch(0.18 0.01 240);
-  --color-secondary-foreground: oklch(0.95 0.01 240);
-  --color-muted: oklch(0.18 0.01 240);
-  --color-muted-foreground: oklch(0.65 0.02 240);
-  --color-accent: oklch(0.65 0.18 60);
-  --color-accent-foreground: oklch(0.08 0.01 240);
-  --color-destructive: oklch(0.55 0.22 25);
-  --color-destructive-foreground: oklch(0.95 0.01 240);
-  --color-border: oklch(0.22 0.01 240);
-  --color-input: oklch(0.22 0.01 240);
-  --color-ring: oklch(0.65 0.18 60);
+  /* HanaDB Dark Mode - Maintaining floral elegance */
+  --color-hanadb-sakura-pink: oklch(0.65 0.08 15); /* Muted sakura */
+  --color-hanadb-blossom-white: oklch(0.15 0.01 30); /* Deep warm background */
+  --color-hanadb-bee-yellow: oklch(0.75 0.12 85); /* Softer bee yellow */
+  --color-hanadb-bee-black: oklch(0.92 0.01 30); /* Light foreground */
+  --color-hanadb-leaf-green: oklch(0.7 0.08 135); /* Darker leaf green */
+  --color-hanadb-sky-blue: oklch(0.6 0.06 230); /* Deeper sky blue */
+  
+  --color-background: var(--color-hanadb-blossom-white);
+  --color-foreground: var(--color-hanadb-bee-black);
+  --color-card: oklch(0.18 0.01 30);
+  --color-card-foreground: var(--color-hanadb-bee-black);
+  --color-popover: oklch(0.18 0.01 30);
+  --color-popover-foreground: var(--color-hanadb-bee-black);
+  --color-primary: var(--color-hanadb-sakura-pink);
+  --color-primary-foreground: var(--color-hanadb-blossom-white);
+  --color-secondary: var(--color-hanadb-bee-yellow);
+  --color-secondary-foreground: oklch(0.2 0.01 85);
+  --color-muted: oklch(0.2 0.01 30);
+  --color-muted-foreground: oklch(0.7 0.02 30);
+  --color-accent: var(--color-hanadb-leaf-green);
+  --color-accent-foreground: var(--color-hanadb-blossom-white);
+  --color-destructive: oklch(0.55 0.18 25);
+  --color-destructive-foreground: var(--color-hanadb-bee-black);
+  --color-border: oklch(0.25 0.02 30);
+  --color-input: oklch(0.25 0.02 30);
+  --color-ring: var(--color-hanadb-sakura-pink);
+  
+  /* Font family definitions for Tailwind (inherited from light mode) */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
 }
 
 @layer base {
   body {
-    font-family: 'Geist Sans', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-variation-settings: normal;
   }
 
   .font-mono {
-    font-family: 'Geist Mono', monospace;
+    font-family: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    font-feature-settings: 'liga' 1, 'calt' 1;
+  }
+
+  /* HanaDB Typography Enhancements */
+  h1, h2, h3, h4, h5, h6 {
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    letter-spacing: -0.025em;
+  }
+
+  /* Elegant spacing for better readability */
+  p {
+    line-height: 1.7;
+  }
+
+  /* Code blocks with softer appearance */
+  code {
+    font-family: 'JetBrains Mono', 'SF Mono', Monaco, 'Cascadia Code', monospace;
+    font-size: 0.9em;
+    letter-spacing: -0.01em;
   }
 }
 
@@ -96,17 +151,114 @@
   z-index: 1;
 }
 
-/* Floating animation for bee */
+/* HanaDB Utility Classes */
+.hanadb-gradient-sakura {
+  background: linear-gradient(135deg, var(--color-hanadb-sakura-pink) 0%, var(--color-hanadb-blossom-white) 100%);
+}
+
+.hanadb-gradient-spring {
+  background: linear-gradient(135deg, var(--color-hanadb-sakura-pink) 0%, var(--color-hanadb-leaf-green) 50%, var(--color-hanadb-sky-blue) 100%);
+}
+
+.hanadb-shadow-soft {
+  box-shadow: 0 2px 8px oklch(0.82 0.1 15 / 0.15);
+}
+
+.hanadb-shadow-medium {
+  box-shadow: 0 4px 16px oklch(0.82 0.1 15 / 0.2);
+}
+
+.hanadb-shadow-bloom {
+  box-shadow: 0 8px 32px oklch(0.82 0.1 15 / 0.25);
+}
+
+/* Floating animation for bee - gentler, more graceful */
 @keyframes float {
   0%,
   100% {
-    transform: translateY(0px);
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(1deg);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-12px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-6px) rotate(-1deg);
   }
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Gentle bloom animation for interactive elements */
+@keyframes bloom {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  50% {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+.animate-bloom:hover {
+  animation: bloom 0.6s ease-in-out;
+}
+
+/* HanaDB Typography Classes */
+.hanadb-title {
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  color: var(--color-hanadb-bee-black);
+}
+
+.hanadb-subtitle {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+  color: var(--color-hanadb-bee-black);
+}
+
+.hanadb-body {
+  line-height: 1.7;
+  font-weight: 400;
+  color: var(--color-hanadb-bee-black);
+}
+
+.hanadb-caption {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 500;
+  color: oklch(0.5 0.02 270);
+  letter-spacing: 0.01em;
+}
+
+/* Elegant text effects for special content */
+.hanadb-text-gradient {
+  background: linear-gradient(135deg, var(--color-hanadb-sakura-pink), var(--color-hanadb-bee-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 600;
+}
+
+/* Soft text shadow for depth */
+.hanadb-text-soft-shadow {
+  text-shadow: 0 2px 4px oklch(0.82 0.1 15 / 0.1);
+}
+
+/* Japanese-inspired text spacing */
+.hanadb-text-zen {
+  letter-spacing: 0.02em;
+  word-spacing: 0.1em;
+  line-height: 1.8;
 }

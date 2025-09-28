@@ -1,7 +1,7 @@
 // @ts-check
-import { defineConfig } from 'astro/config'
 import react from '@astrojs/react'
 import tailwind from '@tailwindcss/vite'
+import { defineConfig } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,7 +13,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwind()],
     ssr: {
-      noExternal: ['@fontsource/geist-sans', '@fontsource/geist-mono'],
+      noExternal: ['@fontsource/inter', '@fontsource/jetbrains-mono'],
     },
   },
 })
