@@ -1,19 +1,45 @@
 ---
-import { CodeEditor } from '../react/CodeEditor'
+import CodePlayground from '../react/CodePlayground.tsx'
 
-const sampleCode = `// Complex query with familiar SQL patterns
-const results = await db.table('orders')
-    .select('id', 'customer_name', 'created_at', 'total')
-    .where('status', '=', 'completed')
-    .where('total', '>', 100)
-    .orderBy('created_at', 'desc')
-    .limit(50)
+const sampleCode = `// Query orders with DexBee's SQL-like API
+const orders = db.table('orders')
+const results = await orders
+  .select(
+    'id', 
+    'customer_name', 
+    'total', 
+    'created_at'
+  )
+  .where(
+    and(
+      eq('status', 'completed'),
+      gt('total', 100)
+    )
+  )
+  .orderBy(
+    'created_at', 
+    'desc'
+  )
+  .limit(10)
+  .all()
 
-// Fully typed, fully declarative, fully optimized
-console.log('Found', results.length, 'orders')
+// Display results
+console.log(
+  'Found', 
+  results.length, 
+  'high-value completed orders:'
+)
 results.forEach(order => {
-    console.log(\`Order \${order.id}: \${order.customer_name} - $\${order.total}\`)
-})`
+  console.log(
+    \`Order \${order.id}: \${order.customer_name} - $\${order.total}\`
+  )
+})
+
+// Try other examples:
+// const allOrders = await orders.all()
+// const pending = await orders.where(eq('status', 'pending')).all()
+// const firstOrder = await orders.first()
+// const totalOrders = await orders.count()`
 ---
 
 <section id="code-sample" class="py-20">
@@ -24,28 +50,15 @@ results.forEach(order => {
         DexBee translates your SQL knowledge into powerful IndexedDB queries. Write the way you think.
       </p>
 
-      <div class="max-w-4xl mx-auto">
-        <div class="bg-card/50 rounded-lg border border-border p-6 text-left">
-          <div class="flex items-center gap-2 mb-4">
-            <div class="flex gap-1">
-              <div class="w-3 h-3 rounded-full bg-red-500"></div>
-              <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-              <div class="w-3 h-3 rounded-full bg-green-500"></div>
-            </div>
-            <span class="text-sm font-medium text-primary">DexBee Query Example</span>
-          </div>
-
-          <div class="h-96">
-            <CodeEditor
-              client:load
-              value={sampleCode}
-              onChange={code => console.log('Code changed:', code)}
-              onExecute={code => console.log('Executing:', code)}
-              onSave={code => console.log('Saving:', code)}
-              height="350px"
-            />
-          </div>
-        </div>
+      <div class="max-w-5xl mx-auto text-left">
+        <CodePlayground
+          client:visible
+          initialCode={sampleCode}
+          title="Interactive DexBee Query"
+          description="Try editing this query and click 'Run' to see how DexBee makes IndexedDB queries intuitive"
+          runnable={true}
+          height="400px"
+        />
       </div>
     </div>
   </div>

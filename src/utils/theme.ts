@@ -21,4 +21,15 @@ export function toggleTheme() {
 
   document.documentElement.classList.toggle('dark', newTheme === 'dark')
   localStorage.setItem('theme', newTheme)
+  
+  // Dispatch custom event for components that need to listen for theme changes
+  window.dispatchEvent(new CustomEvent('themeChange', { 
+    detail: { theme: newTheme, isDark: newTheme === 'dark' } 
+  }))
+}
+
+export function isDarkTheme() {
+  if (typeof window === 'undefined')
+    return false
+  return document.documentElement.classList.contains('dark')
 }

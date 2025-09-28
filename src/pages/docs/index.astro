@@ -1,12 +1,14 @@
 ---
-import DocsLayout from '../../layouts/DocsLayout.astro';
-import Prose from '../../components/docs/Prose.astro';
+import { ClientRouter } from 'astro:transitions'
+import { CodeBlock } from '../../components/react/CodeBlock.tsx'
+import DocsLayout from '../../layouts/DocsLayout.astro'
 ---
 
 <DocsLayout title="DexBee Documentation" description="Complete documentation for DexBee TypeScript IndexedDB ORM">
+  <ClientRouter />
   <div class="max-w-4xl">
     <div class="mb-8">
-      <h1 class="text-4xl font-bold mb-4">DexBee Documentation</h1>
+      <h1 class="text-4xl font-bold mb-4 text-foreground">DexBee Documentation</h1>
       <p class="text-lg text-muted-foreground leading-relaxed">
         Welcome to the DexBee documentation. DexBee is a powerful TypeScript IndexedDB ORM that brings SQL-like query syntax to client-side databases in web applications.
       </p>
@@ -17,7 +19,7 @@ import Prose from '../../components/docs/Prose.astro';
       <div class="border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
         <div class="flex items-center mb-3">
           <span class="text-2xl mr-3">🚀</span>
-          <h3 class="text-lg font-semibold">Getting Started</h3>
+          <h3 class="text-lg font-semibold text-foreground">Getting Started</h3>
         </div>
         <p class="text-muted-foreground mb-4">
           Learn the basics and get up and running with DexBee quickly.
@@ -36,7 +38,7 @@ import Prose from '../../components/docs/Prose.astro';
       <div class="border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
         <div class="flex items-center mb-3">
           <span class="text-2xl mr-3">📚</span>
-          <h3 class="text-lg font-semibold">Guides</h3>
+          <h3 class="text-lg font-semibold text-foreground">Guides</h3>
         </div>
         <p class="text-muted-foreground mb-4">
           Step-by-step guides for common tasks and patterns.
@@ -52,7 +54,7 @@ import Prose from '../../components/docs/Prose.astro';
       <div class="border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
         <div class="flex items-center mb-3">
           <span class="text-2xl mr-3">⚡</span>
-          <h3 class="text-lg font-semibold">API Reference</h3>
+          <h3 class="text-lg font-semibold text-foreground">API Reference</h3>
         </div>
         <p class="text-muted-foreground mb-4">
           Complete API documentation with examples and type definitions.
@@ -68,7 +70,7 @@ import Prose from '../../components/docs/Prose.astro';
       <div class="border border-border rounded-lg p-6 hover:shadow-lg transition-shadow">
         <div class="flex items-center mb-3">
           <span class="text-2xl mr-3">💡</span>
-          <h3 class="text-lg font-semibold">Examples</h3>
+          <h3 class="text-lg font-semibold text-foreground">Examples</h3>
         </div>
         <p class="text-muted-foreground mb-4">
           Real-world examples and code samples.
@@ -83,13 +85,20 @@ import Prose from '../../components/docs/Prose.astro';
 
     <!-- Quick Start -->
     <div class="border border-border rounded-lg p-6 mb-8">
-      <h2 class="text-2xl font-semibold mb-4">Quick Start</h2>
-      <Prose>
+      <h2 class="text-2xl font-semibold mb-4 text-foreground">Quick Start</h2>
+      <div class="space-y-4">
         <p>Get started with DexBee in just a few minutes:</p>
-        
-        <pre><code class="language-bash">pnpm add dexbee-js</code></pre>
-        
-        <pre><code class="language-typescript">{`import { DexBee, eq } from 'dexbee-js';
+
+        <div class="space-y-3">
+          <div>
+            <p class="text-sm text-muted-foreground mb-2">Install DexBee:</p>
+            <pre class="bg-muted border border-border rounded-lg p-3 text-sm font-mono"><code>pnpm add dexbee-js</code></pre>
+          </div>
+
+          <div>
+            <p class="text-sm text-muted-foreground mb-2">Basic usage example:</p>
+            <CodeBlock
+              code={`import { DexBee, eq } from 'dexbee-js';
 
 // Define schema
 const schema = {
@@ -111,35 +120,40 @@ const schema = {
 const db = await DexBee.connect('myapp', schema);
 const users = await db.table('users')
   .where(eq('name', 'John'))
-  .all();`}</code></pre>
-      </Prose>
+  .all();`}
+              language="typescript"
+              client:load
+            />
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Features Highlight -->
     <div class="grid md:grid-cols-2 gap-8">
       <div>
-        <h3 class="text-xl font-semibold mb-3">🔍 SQL-Like Queries</h3>
+        <h3 class="text-xl font-semibold mb-3 text-foreground">🔍 SQL-Like Queries</h3>
         <p class="text-muted-foreground">
           Write familiar SQL-like queries with full TypeScript support and IntelliSense.
         </p>
       </div>
-      
+
       <div>
-        <h3 class="text-xl font-semibold mb-3">🛠️ Type Safety</h3>
+        <h3 class="text-xl font-semibold mb-3 text-foreground">🛠️ Type Safety</h3>
         <p class="text-muted-foreground">
           Full TypeScript integration with compile-time error checking and auto-completion.
         </p>
       </div>
-      
+
       <div>
-        <h3 class="text-xl font-semibold mb-3">🚀 Modern Architecture</h3>
+        <h3 class="text-xl font-semibold mb-3 text-foreground">🚀 Modern Architecture</h3>
         <p class="text-muted-foreground">
           Built with modern JavaScript features, tree-shakeable, and optimized for performance.
         </p>
       </div>
-      
+
       <div>
-        <h3 class="text-xl font-semibold mb-3">🔄 Migrations</h3>
+        <h3 class="text-xl font-semibold mb-3 text-foreground">🔄 Migrations</h3>
         <p class="text-muted-foreground">
           Schema evolution and data transformation with automatic migration generation.
         </p>
@@ -147,3 +161,4 @@ const users = await db.table('users')
     </div>
   </div>
 </DocsLayout>
+
