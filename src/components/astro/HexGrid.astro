@@ -68,10 +68,14 @@ const props = Astro.props
     width: 100%;
     height: 100%;
     scale: 0.9;
-    filter: drop-shadow(0 1px 8px color-mix(in oklch, var(--color-primary), transparent 85%));
+    filter: drop-shadow(0 1px 5px color-mix(in oklch, var(--color-primary), transparent 85%));
 
     @media (min-width: 480px) {
       scale: 1;
+    }
+
+    @media (min-width: 1280px) {
+      scale: 1.1;
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -176,6 +180,28 @@ const props = Astro.props
       transform: translateY(80%) translateX(80%);
     }
   }
+  @media (prefers-reduced-motion: no-preference) and (min-width: 1280px) {
+    .honeycomb-cell:nth-child(1) {
+      inset: auto 0;
+      transform: translateY(0%) translateX(-100%);
+    }
+
+    .honeycomb-cell:nth-child(2) {
+      inset: auto 0;
+      transform: translateY(100%) translateX(-32.5%);
+    }
+
+    .honeycomb-cell:nth-child(3) {
+      inset: auto 0;
+      transform: translateY(0%) translateX(32.5%);
+    }
+
+    .honeycomb-cell:nth-child(4) {
+      inset: auto 0;
+      transform: translateY(100%) translateX(100%);
+    }
+  }
+
 
   /* Content inside hexagonal cells */
   .honeycomb-content {

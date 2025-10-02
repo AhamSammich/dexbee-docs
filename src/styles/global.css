@@ -153,13 +153,19 @@
   background-position: center center;
   background-attachment: fixed;
   /* Low opacity for subtle background effect */
-  opacity: 0.05;
-  filter: blur(3px);
+  opacity: 0.1;
+  filter: blur(5px);
   /* Subtle radial fade mask for softer edges */
   mask: radial-gradient(ellipse 100% 80% at center, black 40%, transparent 90%);
   -webkit-mask: radial-gradient(ellipse 100% 80% at center, black 40%, transparent 90%);
   pointer-events: none;
   z-index: 0;
+}
+
+.dark .honeycomb-bg::before {
+  background-blend-mode: color-dodge;
+  background-color: var(--color-card);
+  opacity: 0.1;
 }
 
 /* Note: Animation removed since we're using a static background image */
