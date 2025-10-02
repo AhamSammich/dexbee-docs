@@ -26,9 +26,23 @@ const {
 
     <!-- Theme script to prevent flash -->
     <script is:inline>
-  const theme
-    = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-  document.documentElement.classList.toggle('dark', theme === 'dark')
+  (function () {
+    // Get theme from localStorage or system preference
+    const storedTheme = localStorage.getItem('theme')
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const theme = storedTheme || (systemPrefersDark ? 'dark' : 'light')
+
+    // Apply theme immediately
+    document.documentElement.classList.toggle('dark', theme === 'dark')
+
+    // Store theme in localStorage to ensure consistency
+    localStorage.setItem('theme', theme)
+
+    // Dispatch theme change event for React components
+    window.dispatchEvent(new CustomEvent('themeChange', {
+      detail: { theme, isDark: theme === 'dark' },
+  }))
+  })()
   </script>
   </head>
   <body class="font-sans bg-background text-foreground">

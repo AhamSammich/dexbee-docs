@@ -131,18 +131,9 @@ const isActive = (pattern: RegExp) => pattern.test(currentPath);
 </header>
 
 <script>
-// Theme toggle functionality
-const themeToggle = document.getElementById('theme-toggle')
+// Mobile menu toggle functionality
 const mobileMenuToggle = document.getElementById('mobile-menu-toggle')
 const mobileMenu = document.getElementById('mobile-menu')
-
-if (themeToggle) {
-  themeToggle.addEventListener('click', () => {
-    const isDark = document.documentElement.classList.contains('dark')
-    document.documentElement.classList.toggle('dark', !isDark)
-    localStorage.setItem('theme', !isDark ? 'dark' : 'light')
-  })
-}
 
 if (mobileMenuToggle && mobileMenu) {
   mobileMenuToggle.addEventListener('click', () => {

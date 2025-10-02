@@ -4,6 +4,7 @@ import { oneDark } from '@codemirror/theme-one-dark'
 import CodeMirror, { basicSetup } from '@uiw/react-codemirror'
 import { and, DexBee, eq, gt, or } from 'dexbee-js'
 import { useEffect, useRef, useState } from 'react'
+import { useTheme } from '../../hooks/useTheme'
 import { Button } from '../ui/Button'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../ui/Resizable'
 
@@ -29,46 +30,11 @@ export default function CodePlayground({
   const [isInitializing, setIsInitializing] = useState(false)
   const [db, setDb] = useState<any>(null)
   const [isInitialized, setIsInitialized] = useState(false)
-  const [isDark, setIsDark] = useState(false)
+  const { isDark } = useTheme()
   const mounted = useRef(false)
 
   useEffect(() => {
     mounted.current = true
-    
-    // Initialize theme state
-    const checkTheme = () => {
-      const isDarkTheme = document.documentElement.classList.contains('dark')
-      setIsDark(isDarkTheme)
-    }
-    
-    // Set initial theme
-    checkTheme()
-    
-    // Listen for theme changes
-    const handleThemeChange = () => {
-      checkTheme()
-    }
-    
-    window.addEventListener('themeChange', handleThemeChange)
-    
-    // Also listen for class changes on document element
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          checkTheme()
-        }
-      })
-    })
-    
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-    
-    return () => {
-      window.removeEventListener('themeChange', handleThemeChange)
-      observer.disconnect()
-    }
   }, [])
 
   // Helper function to clear sample data

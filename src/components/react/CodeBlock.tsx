@@ -1,7 +1,7 @@
 import { javascript } from '@codemirror/lang-javascript'
 import { oneDark } from '@codemirror/theme-one-dark'
 import CodeMirror, { basicSetup } from '@uiw/react-codemirror'
-import { useEffect, useState } from 'react'
+import { useTheme } from '../../hooks/useTheme'
 import { CopyButton } from './CopyButton'
 
 interface CodeBlockProps {
@@ -17,44 +17,7 @@ export function CodeBlock({
   height = 'auto',
   readonly = true,
 }: CodeBlockProps) {
-  const [isDark, setIsDark] = useState(false)
-
-  useEffect(() => {
-    // Initialize theme state
-    const checkTheme = () => {
-      const isDarkTheme = document.documentElement.classList.contains('dark')
-      requestAnimationFrame(() => setIsDark(isDarkTheme))
-    }
-
-    // Set initial theme
-    checkTheme()
-
-    // Listen for theme changes
-    const handleThemeChange = () => {
-      checkTheme()
-    }
-
-    window.addEventListener('themeChange', handleThemeChange)
-
-    // Also listen for class changes on document element
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-          checkTheme()
-        }
-      })
-    })
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-
-    return () => {
-      window.removeEventListener('themeChange', handleThemeChange)
-      observer.disconnect()
-    }
-  }, [])
+  const { isDark } = useTheme()
 
   const extensions = []
 

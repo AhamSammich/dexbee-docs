@@ -3,8 +3,9 @@ import { oneDark } from '@codemirror/theme-one-dark'
 import { EditorView } from '@codemirror/view'
 import CodeMirror from '@uiw/react-codemirror'
 import { Play, Save } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Button } from '@/components/ui/Button'
+import { useTheme } from '../../hooks/useTheme'
 
 interface CodeEditorProps {
   value: string
@@ -22,7 +23,7 @@ export function CodeEditor({
   height = '300px',
 }: CodeEditorProps) {
   const [localValue, setLocalValue] = useState(value)
-  const [isDark, setIsDark] = useState(false)
+  const { isDark } = useTheme()
 
   // Sync local value with external value when it changes
   // Use a ref to track the previous value to avoid unnecessary updates
@@ -32,27 +33,6 @@ export function CodeEditor({
     prevValue.current = value
     setLocalValue(value)
   }
-
-  // Detect theme on mount and listen for changes
-  useEffect(() => {
-    const checkTheme = () => {
-      const isCurrentlyDark = document.documentElement.classList.contains('dark')
-      // Use requestAnimationFrame to defer state update
-      requestAnimationFrame(() => setIsDark(isCurrentlyDark))
-    }
-
-    // Initial check
-    checkTheme()
-
-    // Listen for theme changes
-    const observer = new MutationObserver(checkTheme)
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    })
-
-    return () => observer.disconnect()
-  }, [])
 
   const handleChange = (val: string) => {
     setLocalValue(val)
