@@ -20,32 +20,32 @@ DexBee is a powerful TypeScript IndexedDB ORM (Object-Relational Mapping) librar
 ### 🔍 **SQL-Like Query Builder**
 - Familiar SQL syntax for IndexedDB operations
 - Chainable query methods for complex queries
-- Support for joins, aggregations, and relationships
+- Support for aggregations and advanced filtering
 
 ### 🚀 **Modern Architecture**
 - Built with modern JavaScript features
-- Tree-shakeable for optimal bundle size
+- Tree-shakeable for optimal bundle size (~14KB gzipped)
 - Promise-based async/await API
+- Browser-focused with ESM support
 
 ### 📊 **Advanced Features**
-- Schema migrations and versioning
-- Transaction management
-- Relationship mapping (hasOne, hasMany, belongsTo)
+- Enterprise schema migrations with rollback support
+- Transaction management with ACID compliance
+- Blob storage for Files, Images, and binary data
 - Data validation and default values
 - Index optimization
 
 ### 🎯 **Developer Experience**
 - Intuitive API design
 - Comprehensive error handling
-- Built-in debugging tools
-- Extensive documentation
+- Extensive documentation and examples
 
 ## When to Use DexBee
 
 DexBee is perfect for applications that need:
 
 - **Offline-first functionality** - Store and query data locally
-- **Complex data relationships** - Handle related data with ease  
+- **Complex data relationships** - Handle related data with ease
 - **Type safety** - Catch errors at compile time
 - **Performance** - Optimized queries and indexes
 - **Scalability** - Handle large datasets efficiently
@@ -53,7 +53,7 @@ DexBee is perfect for applications that need:
 ## Quick Example
 
 ```typescript
-import { DexBee, Table, eq } from 'dexbee-js';
+import { DexBee, eq, Table } from 'dexbee-js'
 
 // Define your schema
 const schema = {
@@ -70,17 +70,17 @@ const schema = {
       autoIncrement: true
     }
   }
-};
+}
 
 // Connect to database
-const db = await DexBee.connect('myapp', schema);
+const db = await DexBee.connect('myapp', schema)
 
 // Query data with SQL-like syntax
 const users = await db.table('users')
   .where(eq('name', 'John'))
   .orderBy('createdAt', 'desc')
   .limit(10)
-  .all();
+  .all()
 ```
 
 ## Architecture Overview
@@ -88,7 +88,7 @@ const users = await db.table('users')
 DexBee is built with a modular architecture that separates concerns:
 
 - **Database Layer** - Connection management and schema validation
-- **Query Layer** - SQL-like query building and execution  
+- **Query Layer** - SQL-like query building and execution
 - **Transaction Layer** - Safe transaction handling
 - **Migration Layer** - Schema evolution and data transformation
 - **Type Layer** - TypeScript definitions and validation

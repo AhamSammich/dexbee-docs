@@ -114,23 +114,25 @@ const nonJohnUsers = await db.table('users')
 ### Range Operators
 
 ```typescript
-import { between, in_, notIn } from 'dexbee-js';
+import { between, inArray, not } from 'dexbee-js';
 
 // Between values
 const middleAgedUsers = await db.table('users')
   .where(between('age', 25, 65))
   .all();
 
-// In list of values
+// In list of values (recommended)
 const specificUsers = await db.table('users')
-  .where(in_('name', ['John', 'Jane', 'Bob']))
+  .where(inArray('name', ['John', 'Jane', 'Bob']))
   .all();
 
-// Not in list of values  
+// Not in list of values (using not + inArray)
 const excludedUsers = await db.table('users')
-  .where(notIn('status', ['banned', 'suspended']))
+  .where(not(inArray('status', ['banned', 'suspended'])))
   .all();
 ```
+
+> **Note**: The `in_` and `notIn` operators are deprecated. Use `inArray` and `not(inArray(...))` instead.
 
 ### Logical Operators
 

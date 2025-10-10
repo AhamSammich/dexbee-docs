@@ -15,7 +15,7 @@ This page contains practical examples of using DexBee in real applications. Each
 A simple todo application demonstrating CRUD operations:
 
 ```typescript
-import { DexBee, eq, and } from 'dexbee-js';
+import { and, DexBee, eq } from 'dexbee-js'
 
 // Define the schema
 const todoSchema = {
@@ -38,10 +38,10 @@ const todoSchema = {
       ]
     }
   }
-};
+}
 
 // Initialize database
-const db = await DexBee.connect('todoapp', todoSchema);
+const db = await DexBee.connect('todoapp', todoSchema)
 
 // Todo operations
 class TodoService {
@@ -51,14 +51,14 @@ class TodoService {
       title,
       category,
       completed: false
-    });
+    })
   }
 
   // Get all todos
   async getAllTodos() {
     return await db.table('todos')
       .orderBy('createdAt', 'desc')
-      .all();
+      .all()
   }
 
   // Get todos by status
@@ -66,7 +66,7 @@ class TodoService {
     return await db.table('todos')
       .where(eq('completed', completed))
       .orderBy('createdAt', 'desc')
-      .all();
+      .all()
   }
 
   // Get todos by category
@@ -74,22 +74,23 @@ class TodoService {
     return await db.table('todos')
       .where(eq('category', category))
       .orderBy('createdAt', 'desc')
-      .all();
+      .all()
   }
 
   // Toggle todo completion
   async toggleTodo(id: number) {
-    const todo = await db.table('todos').findById(id);
-    if (!todo) throw new Error('Todo not found');
+    const todo = await db.table('todos').findById(id)
+    if (!todo)
+      throw new Error('Todo not found')
 
     return await db.table('todos').update(id, {
       completed: !todo.completed
-    });
+    })
   }
 
   // Delete todo
   async deleteTodo(id: number) {
-    return await db.table('todos').delete(id);
+    return await db.table('todos').delete(id)
   }
 
   // Get statistics
@@ -98,9 +99,9 @@ class TodoService {
       db.table('todos').count(),
       db.table('todos').where(eq('completed', true)).count(),
       db.table('todos').where(eq('completed', false)).count()
-    ]);
+    ])
 
-    return { total, completed, pending };
+    return { total, completed, pending }
   }
 }
 ```
@@ -110,7 +111,7 @@ class TodoService {
 A more complex example with relationships and data validation:
 
 ```typescript
-import { DexBee, eq, gte, and, or } from 'dexbee-js';
+import { and, DexBee, eq, gte, or } from 'dexbee-js'
 
 const userSchema = {
   version: 1,
@@ -154,44 +155,44 @@ const userSchema = {
       ]
     }
   }
-};
+}
 
-const db = await DexBee.connect('userapp', userSchema);
+const db = await DexBee.connect('userapp', userSchema)
 
 class UserService {
   // Create user with profile
   async createUser(userData: {
-    username: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-    age: number;
-    role?: string;
+    username: string
+    email: string
+    firstName: string
+    lastName: string
+    age: number
+    role?: string
   }, profileData?: {
-    bio?: string;
-    avatar?: string;
-    website?: string;
-    location?: string;
+    bio?: string
+    avatar?: string
+    website?: string
+    location?: string
   }) {
     return await db.withWriteTransaction(['users', 'profiles'], async (tx) => {
       // Validate age
       if (userData.age < 13) {
-        throw new Error('Users must be at least 13 years old');
+        throw new Error('Users must be at least 13 years old')
       }
 
       // Create user
-      const user = await db.table('users').insert(userData);
+      const user = await db.table('users').insert(userData)
 
       // Create profile if provided
       if (profileData) {
         await db.table('profiles').insert({
           userId: user.id,
           ...profileData
-        });
+        })
       }
 
-      return user;
-    });
+      return user
+    })
   }
 
   // Get user with profile
@@ -199,49 +200,49 @@ class UserService {
     const [user, profile] = await Promise.all([
       db.table('users').findById(userId),
       db.table('profiles').where(eq('userId', userId)).first()
-    ]);
+    ])
 
-    return user ? { ...user, profile } : null;
+    return user ? { ...user, profile } : null
   }
 
   // Search users
   async searchUsers(query: {
-    role?: string;
-    isActive?: boolean;
-    minAge?: number;
-    limit?: number;
+    role?: string
+    isActive?: boolean
+    minAge?: number
+    limit?: number
   }) {
-    let userQuery = db.table('users');
+    let userQuery = db.table('users')
 
-    const conditions = [];
+    const conditions = []
 
     if (query.role) {
-      conditions.push(eq('role', query.role));
+      conditions.push(eq('role', query.role))
     }
 
     if (typeof query.isActive === 'boolean') {
-      conditions.push(eq('isActive', query.isActive));
+      conditions.push(eq('isActive', query.isActive))
     }
 
     if (query.minAge) {
-      conditions.push(gte('age', query.minAge));
+      conditions.push(gte('age', query.minAge))
     }
 
     if (conditions.length > 0) {
-      userQuery = userQuery.where(and(...conditions));
+      userQuery = userQuery.where(and(...conditions))
     }
 
     return await userQuery
       .orderBy('createdAt', 'desc')
       .limit(query.limit || 50)
-      .all();
+      .all()
   }
 
   // Update last login
   async updateLastLogin(userId: number) {
     return await db.table('users').update(userId, {
       lastLoginAt: new Date()
-    });
+    })
   }
 
   // Get user statistics
@@ -258,14 +259,14 @@ class UserService {
       db.table('users')
         .where(gte('createdAt', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)))
         .count()
-    ]);
+    ])
 
     return {
       total: totalUsers,
       active: activeUsers,
       admins: adminCount,
       recentSignups: recentUsers
-    };
+    }
   }
 }
 ```
@@ -275,7 +276,7 @@ class UserService {
 Complex querying with categories, pricing, and inventory:
 
 ```typescript
-import { DexBee, eq, gte, lte, and, or, between, in_ } from 'dexbee-js';
+import { and, between, DexBee, eq, gte, inArray, lte, not, or } from 'dexbee-js'
 
 const catalogSchema = {
   version: 1,
@@ -321,83 +322,86 @@ const catalogSchema = {
       ]
     }
   }
-};
+}
 
-const db = await DexBee.connect('catalog', catalogSchema);
+const db = await DexBee.connect('catalog', catalogSchema)
 
 class ProductService {
   // Search products with filters
   async searchProducts(filters: {
-    categoryId?: number;
-    priceMin?: number;
-    priceMax?: number;
-    inStock?: boolean;
-    minRating?: number;
-    tags?: string[];
-    sortBy?: 'price' | 'rating' | 'created';
-    sortOrder?: 'asc' | 'desc';
-    limit?: number;
-    offset?: number;
+    categoryId?: number
+    priceMin?: number
+    priceMax?: number
+    inStock?: boolean
+    minRating?: number
+    tags?: string[]
+    sortBy?: 'price' | 'rating' | 'created'
+    sortOrder?: 'asc' | 'desc'
+    limit?: number
+    offset?: number
   }) {
-    let query = db.table('products');
-    const conditions = [];
+    let query = db.table('products')
+    const conditions = []
 
     // Category filter
     if (filters.categoryId) {
-      conditions.push(eq('categoryId', filters.categoryId));
+      conditions.push(eq('categoryId', filters.categoryId))
     }
 
     // Price range
     if (filters.priceMin && filters.priceMax) {
-      conditions.push(between('price', filters.priceMin, filters.priceMax));
-    } else if (filters.priceMin) {
-      conditions.push(gte('price', filters.priceMin));
-    } else if (filters.priceMax) {
-      conditions.push(lte('price', filters.priceMax));
+      conditions.push(between('price', filters.priceMin, filters.priceMax))
+    }
+    else if (filters.priceMin) {
+      conditions.push(gte('price', filters.priceMin))
+    }
+    else if (filters.priceMax) {
+      conditions.push(lte('price', filters.priceMax))
     }
 
     // Stock filter
     if (typeof filters.inStock === 'boolean') {
-      conditions.push(eq('inStock', filters.inStock));
+      conditions.push(eq('inStock', filters.inStock))
     }
 
     // Rating filter
     if (filters.minRating) {
-      conditions.push(gte('rating', filters.minRating));
+      conditions.push(gte('rating', filters.minRating))
     }
 
     // Apply conditions
     if (conditions.length > 0) {
-      query = query.where(and(...conditions));
+      query = query.where(and(...conditions))
     }
 
     // Sorting
-    const sortBy = filters.sortBy || 'created';
-    const sortOrder = filters.sortOrder || 'desc';
-    
+    const sortBy = filters.sortBy || 'created'
+    const sortOrder = filters.sortOrder || 'desc'
+
     if (sortBy === 'created') {
-      query = query.orderBy('createdAt', sortOrder);
-    } else {
-      query = query.orderBy(sortBy, sortOrder);
+      query = query.orderBy('createdAt', sortOrder)
+    }
+    else {
+      query = query.orderBy(sortBy, sortOrder)
     }
 
     // Pagination
     if (filters.offset) {
-      query = query.offset(filters.offset);
+      query = query.offset(filters.offset)
     }
 
-    const limit = filters.limit || 20;
-    const products = await query.limit(limit).all();
+    const limit = filters.limit || 20
+    const products = await query.limit(limit).all()
 
     // Filter by tags (IndexedDB doesn't support array contains)
-    let filteredProducts = products;
+    let filteredProducts = products
     if (filters.tags && filters.tags.length > 0) {
-      filteredProducts = products.filter(product => 
+      filteredProducts = products.filter(product =>
         filters.tags!.some(tag => product.tags.includes(tag))
-      );
+      )
     }
 
-    return filteredProducts;
+    return filteredProducts
   }
 
   // Get featured products
@@ -409,7 +413,7 @@ class ProductService {
       ))
       .orderBy('rating', 'desc')
       .limit(limit)
-      .all();
+      .all()
   }
 
   // Get products by category with hierarchy
@@ -417,38 +421,40 @@ class ProductService {
     // Get category
     const category = await db.table('categories')
       .where(eq('slug', categorySlug))
-      .first();
+      .first()
 
-    if (!category) return [];
+    if (!category)
+      return []
 
     // Get child categories
     const childCategories = await db.table('categories')
       .where(eq('parentId', category.id))
-      .all();
+      .all()
 
-    const categoryIds = [category.id, ...childCategories.map(c => c.id)];
+    const categoryIds = [category.id, ...childCategories.map(c => c.id)]
 
     // Get products from all relevant categories
     return await db.table('products')
       .where(and(
-        in_('categoryId', categoryIds),
+        inArray('categoryId', categoryIds),
         eq('inStock', true)
       ))
       .orderBy('rating', 'desc')
-      .all();
+      .all()
   }
 
   // Update inventory
   async updateStock(productId: number, quantity: number) {
-    const product = await db.table('products').findById(productId);
-    if (!product) throw new Error('Product not found');
+    const product = await db.table('products').findById(productId)
+    if (!product)
+      throw new Error('Product not found')
 
-    const newStockCount = Math.max(0, product.stockCount + quantity);
-    
+    const newStockCount = Math.max(0, product.stockCount + quantity)
+
     return await db.table('products').update(productId, {
       stockCount: newStockCount,
       inStock: newStockCount > 0
-    });
+    })
   }
 
   // Get low stock products
@@ -459,7 +465,7 @@ class ProductService {
         lte('stockCount', threshold)
       ))
       .orderBy('stockCount', 'asc')
-      .all();
+      .all()
   }
 }
 ```
@@ -471,32 +477,32 @@ Aggregation and reporting examples:
 ```typescript
 class AnalyticsService {
   // Sales analytics
-  async getSalesMetrics(dateRange?: { start: Date; end: Date }) {
-    let query = db.table('orders');
+  async getSalesMetrics(dateRange?: { start: Date, end: Date }) {
+    let query = db.table('orders')
 
     if (dateRange) {
-      query = query.where(between('createdAt', dateRange.start, dateRange.end));
+      query = query.where(between('createdAt', dateRange.start, dateRange.end))
     }
 
-    const orders = await query.all();
+    const orders = await query.all()
 
     // Calculate metrics
-    const totalSales = orders.reduce((sum, order) => sum + order.total, 0);
-    const averageOrderValue = totalSales / orders.length || 0;
-    const totalOrders = orders.length;
+    const totalSales = orders.reduce((sum, order) => sum + order.total, 0)
+    const averageOrderValue = totalSales / orders.length || 0
+    const totalOrders = orders.length
 
     // Group by status
     const ordersByStatus = orders.reduce((acc, order) => {
-      acc[order.status] = (acc[order.status] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+      acc[order.status] = (acc[order.status] || 0) + 1
+      return acc
+    }, {} as Record<string, number>)
 
     return {
       totalSales,
       averageOrderValue,
       totalOrders,
       ordersByStatus
-    };
+    }
   }
 
   // User engagement metrics
@@ -513,14 +519,14 @@ class AnalyticsService {
       db.table('users')
         .where(gte('createdAt', new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)))
         .count()
-    ]);
+    ])
 
     return {
       total: totalUsers,
       active: activeUsers,
       new: newUsers,
       engagementRate: totalUsers > 0 ? (activeUsers / totalUsers) * 100 : 0
-    };
+    }
   }
 
   // Product performance
@@ -530,7 +536,7 @@ class AnalyticsService {
       .orderBy('reviewCount', 'desc')
       .limit(limit)
       .select('id', 'name', 'rating', 'reviewCount', 'price')
-      .all();
+      .all()
   }
 }
 ```
@@ -554,7 +560,7 @@ const schemaV1 = {
       autoIncrement: true
     }
   }
-};
+}
 
 // Version 2 schema with new fields
 const schemaV2 = {
@@ -576,22 +582,23 @@ const schemaV2 = {
       ]
     }
   }
-};
+}
 
 // Perform migration
-const db = await DexBee.connect('myapp', schemaV1);
+const db = await DexBee.connect('myapp', schemaV1)
 
 // Later, migrate to v2
 const migrationResult = await db.migrate(schemaV2, {
   dryRun: false,
   backup: true,
   transformData: true
-});
+})
 
 if (migrationResult.success) {
-  console.log('Migration completed successfully');
-} else {
-  console.error('Migration failed:', migrationResult.errors);
+  console.log('Migration completed successfully')
+}
+else {
+  console.error('Migration failed:', migrationResult.errors)
 }
 ```
 
