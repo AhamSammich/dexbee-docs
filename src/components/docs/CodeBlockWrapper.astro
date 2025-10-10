@@ -1,0 +1,19 @@
+---
+import { CodeBlock } from '../react/CodeBlock.tsx'
+
+export interface Props {
+  code: string
+  language?: string
+  class?: string
+}
+
+const { code, language = 'typescript', class: className = '' } = Astro.props
+---
+
+<div class={className}>
+  <CodeBlock 
+    code={code} 
+    language={language} 
+    client:load 
+  />
+</div>

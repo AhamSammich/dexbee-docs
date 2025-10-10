@@ -1,6 +1,7 @@
 ---
 import { ClientRouter } from 'astro:transitions'
 import { CodeBlock } from '../../components/react/CodeBlock.tsx'
+import { TabbedCodeBlock } from '../../components/react/TabbedCodeBlock.tsx'
 import DocsLayout from '../../layouts/DocsLayout.astro'
 ---
 
@@ -92,7 +93,15 @@ import DocsLayout from '../../layouts/DocsLayout.astro'
         <div class="space-y-3">
           <div>
             <p class="text-sm text-muted-foreground mb-2">Install DexBee:</p>
-            <pre class="bg-muted border border-border rounded-lg p-3 text-sm font-mono"><code>pnpm add dexbee-js</code></pre>
+            <TabbedCodeBlock
+              tabs={[
+              { id: 'npm', label: 'npm', code: 'npm install dexbee-js' },
+              { id: 'pnpm', label: 'pnpm', code: 'pnpm add dexbee-js' },
+              { id: 'yarn', label: 'yarn', code: 'yarn add dexbee-js' },
+            ]}
+              initialTabId="npm"
+              client:load
+            />
           </div>
 
           <div>

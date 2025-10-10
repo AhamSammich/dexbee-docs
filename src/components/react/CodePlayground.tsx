@@ -1,9 +1,9 @@
 import type { DatabaseSchema } from 'dexbee-js'
 import { javascript } from '@codemirror/lang-javascript'
-import { oneDark } from '@codemirror/theme-one-dark'
 import CodeMirror, { basicSetup } from '@uiw/react-codemirror'
 import { and, DexBee, eq, gt, or } from 'dexbee-js'
 import { useEffect, useRef, useState } from 'react'
+import { rosePineDawn } from 'thememirror'
 import { useTheme } from '../../hooks/useTheme'
 import { Button } from '../ui/Button'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '../ui/Resizable'
@@ -312,7 +312,7 @@ export default function CodePlayground({
               value={code}
               onChange={value => setCode(value)}
               extensions={[basicSetup({ tabSize: 2 }), javascript({ jsx: true, typescript: true })]}
-              theme={mounted.current && isDark ? oneDark : 'light'}
+              theme={mounted.current && isDark ? 'dark' : rosePineDawn}
               height={height}
               className="text-sm whitespace-pre-wrap"
             />

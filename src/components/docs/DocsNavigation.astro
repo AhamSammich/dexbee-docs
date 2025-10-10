@@ -1,43 +1,56 @@
 ---
 export interface Props {
-  docs: any[];
+  docs: {
+    data: {
+      title: string
+      description: string
+      category: string
+      order: number
+      tags: string[]
+    }
+    slug: string
+  }[]
 }
 
-const { docs } = Astro.props;
+const { docs } = Astro.props
 
 // Group docs by category
-const docsByCategory = docs.reduce((acc, doc) => {
-  const category = doc.data.category;
+const docsByCategory = docs.reduce((acc: Record<string, typeof docs>, doc) => {
+  const category = doc.data.category
   if (!acc[category]) {
-    acc[category] = [];
+    acc[category] = []
   }
-  acc[category].push(doc);
-  return acc;
-}, {});
+  acc[category].push(doc)
+  return acc
+}, {})
 
 // Category display names and icons
-const categoryInfo = {
-  'getting-started': { 
-    name: 'Getting Started', 
-    icon: '🚀'
+const categoryInfo: Record<string, { name: string, icon: string }> = {
+  'getting-started': {
+    name: 'Getting Started',
+    icon: '🚀',
   },
-  'guides': { 
-    name: 'Guides', 
-    icon: '📚'
+  'guides': {
+    name: 'Guides',
+    icon: '📚',
   },
-  'api': { 
-    name: 'API Reference', 
-    icon: '⚡'
+  'api': {
+    name: 'API Reference',
+    icon: '⚡',
   },
-  'examples': { 
-    name: 'Examples', 
-    icon: '💡'
+  'examples': {
+    name: 'Examples',
+    icon: '💡',
   },
-  'migration': { 
-    name: 'Migration', 
-    icon: '🔄'
-  }
-};
+  'migration': {
+    name: 'Migration',
+    icon: '🔄',
+  },
+  'about': {
+    name: 'About',
+    icon: '🌱',
+  },
+}
 
 // Get current path for active state
 const currentPath = Astro.url.pathname;
@@ -45,8 +58,8 @@ const currentPath = Astro.url.pathname;
 
 <nav class="space-y-6">
   {Object.entries(docsByCategory).map(([category, categoryDocs]) => {
-    const info = categoryInfo[category] || { name: category, icon: '📄' };
-    
+    const info = categoryInfo[category] || { name: category, icon: '📄' }
+
     return (
       <div>
         <h4 class="mb-1 rounded-md px-2 py-1 text-sm font-semibold flex items-center gap-2">
@@ -54,25 +67,25 @@ const currentPath = Astro.url.pathname;
           {info.name}
         </h4>
         <div class="grid grid-flow-row auto-rows-max text-sm">
-          {categoryDocs.map((doc) => {
-            const href = `/docs/${doc.slug}`;
-            const isActive = currentPath === href;
-            
+          {categoryDocs.sort((a, b) => a.data.order - b.data.order).map((doc) => {
+            const href = `/docs/${doc.slug}`
+            const isActive = currentPath === href
+
             return (
               <a
                 href={href}
                 class={`group flex w-full items-center rounded-md border border-transparent px-2 py-1 hover:underline ${
-                  isActive 
-                    ? 'font-medium text-foreground bg-muted' 
+                  isActive
+                    ? 'font-medium text-foreground bg-muted'
                     : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {doc.data.title}
               </a>
-            );
+            )
           })}
         </div>
       </div>
-    );
+    )
   })}
 </nav>

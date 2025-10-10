@@ -1,12 +1,15 @@
 ---
+import { CodeBlockReplacer } from '../react/CodeBlockReplacer.tsx';
+
 export interface Props {
   class?: string
 }
 
 const { class: className = '' } = Astro.props;
+const containerId = `prose-container-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
-<div class={`
+<div id={containerId} class={`
   prose dark:prose-invert max-w-none
   prose-headings:scroll-mt-20
   prose-h1:text-3xl prose-h1:font-bold prose-h1:mb-6 prose-h1:mt-8 prose-h1:text-foreground
@@ -29,6 +32,7 @@ const { class: className = '' } = Astro.props;
 `}
 >
   <slot />
+  <CodeBlockReplacer containerId={containerId} client:load />
 </div>
 
 <style>
