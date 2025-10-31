@@ -29,7 +29,7 @@ DexBee is a powerful TypeScript IndexedDB ORM (Object-Relational Mapping) librar
 - Browser-focused with ESM support
 
 ### 📊 **Advanced Features**
-- Enterprise schema migrations with rollback support
+- Optional schema migrations with dry-run validation
 - Transaction management with ACID compliance
 - Blob storage for Files, Images, and binary data
 - Data validation and default values
@@ -90,7 +90,7 @@ DexBee is built with a modular architecture that separates concerns:
 - **Database Layer** - Connection management and schema validation
 - **Query Layer** - SQL-like query building and execution
 - **Transaction Layer** - Safe transaction handling
-- **Migration Layer** - Schema evolution and data transformation
+- **Migration Layer** - Dry-run validation and schema evolution
 - **Type Layer** - TypeScript definitions and validation
 
 ## Next Steps

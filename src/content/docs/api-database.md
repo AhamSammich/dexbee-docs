@@ -332,23 +332,9 @@ const newSchema = {
 };
 
 const result = await db.migrate(newSchema, {
-  dryRun: false,
-  backup: true
+  validateEachStep: true
 });
 ```
-
-#### rollback()
-
-```typescript
-async rollback(targetVersion: number): Promise<RollbackResult>
-```
-
-Rolls back the database to a previous schema version.
-
-**Parameters:**
-- `targetVersion` - Version to roll back to
-
-**Returns:** `Promise<RollbackResult>` - Rollback result details
 
 ## Interfaces
 
@@ -367,9 +353,8 @@ interface TransactionOptions {
 ```typescript
 interface MigrationOptions {
   dryRun?: boolean;
-  backup?: boolean;
-  validateOnly?: boolean;
-  transformData?: boolean;
+  validateEachStep?: boolean;
+  batchSize?: number;
 }
 ```
 

@@ -543,9 +543,12 @@ class AnalyticsService {
 
 ## Migration Example
 
-Schema evolution and data transformation:
+Additive schema evolution with dry-run validation:
 
 ```typescript
+import { DexBee } from 'dexbee-js'
+import { withMigrations } from 'dexbee-js/migrations'
+
 // Version 1 schema
 const schemaV1 = {
   version: 1,
@@ -562,16 +565,16 @@ const schemaV1 = {
   }
 }
 
-// Version 2 schema with new fields
+// Version 2 schema with new fields (additive only)
 const schemaV2 = {
   version: 2,
   tables: {
     users: {
       schema: {
         id: { type: 'number', required: true },
-        firstName: { type: 'string', required: true },
-        lastName: { type: 'string', required: true },
+        name: { type: 'string', required: true },
         email: { type: 'string', required: true, unique: true },
+        // NEW: Added fields with defaults
         createdAt: { type: 'date', default: () => new Date() },
         isActive: { type: 'boolean', default: () => true }
       },
@@ -584,22 +587,30 @@ const schemaV2 = {
   }
 }
 
-// Perform migration
+// Connect and add migration capabilities
 const db = await DexBee.connect('myapp', schemaV1)
+const migratable = withMigrations(db)
 
-// Later, migrate to v2
-const migrationResult = await db.migrate(schemaV2, {
-  dryRun: false,
-  backup: true,
-  transformData: true
-})
+// Preview migration first (dry run)
+const dryRun = await migratable.dryRunMigration(schemaV2)
+console.log('Operations:', dryRun.operations)
+console.log('Warnings:', dryRun.warnings)
 
-if (migrationResult.success) {
-  console.log('Migration completed successfully')
+// Apply if safe
+if (dryRun.isValid && dryRun.warnings.length === 0) {
+  const result = await migratable.migrate(schemaV2, {
+    validateEachStep: true
+  })
+
+  if (result.success) {
+    console.log('Migration completed successfully')
+  }
 }
 else {
-  console.error('Migration failed:', migrationResult.errors)
+  console.error('Migration has warnings:', dryRun.warnings)
 }
 ```
+
+For more migration patterns and best practices, see the [Migrations Guide](/docs/migrations).
 
 These examples demonstrate various patterns and use cases for DexBee. You can adapt them to your specific needs and combine different techniques for more complex applications.

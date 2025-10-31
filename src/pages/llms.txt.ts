@@ -14,7 +14,7 @@ DexBee is a powerful TypeScript IndexedDB ORM (Object-Relational Mapping) librar
 - **Type-Safe ORM**: Full TypeScript support with strict type checking, auto-completion and IntelliSense support, compile-time error detection
 - **SQL-Like Query Builder**: Familiar SQL syntax for IndexedDB operations, chainable query methods for complex queries, support for aggregations and advanced filtering
 - **Modern Architecture**: Built with modern JavaScript features, tree-shakeable for optimal bundle size (~14KB gzipped), promise-based async/await API, browser-focused with ESM support
-- **Advanced Features**: Enterprise schema migrations with rollback support, transaction management with ACID compliance, blob storage for Files, Images, and binary data, data validation and default values, index optimization
+- **Advanced Features**: Optional schema migrations with dry-run validation, transaction management with ACID compliance, blob storage for Files, Images, and binary data, data validation and default values, index optimization
 - **Developer Experience**: Intuitive API design, comprehensive error handling, extensive documentation and examples
 
 ### When to Use DexBee
@@ -354,13 +354,6 @@ async migrate(
 
 Migrates the database to a new schema version.
 
-#### rollback()
-
-\`\`\`typescript
-async rollback(targetVersion: number): Promise<RollbackResult>
-\`\`\`
-
-Rolls back the database to a previous schema version.
 
 ---
 
@@ -1091,7 +1084,7 @@ class UserService {
 - Core database connection and transaction management
 - SQL-like query builder with chainable interface
 - Schema validation and data integrity
-- Enterprise-grade migration system with rollback support
+- Optional migration system with dry-run validation
 - Type-safe TypeScript interfaces throughout
 - Tree-shaking optimized build (~14KB gzipped)
 - Comprehensive test suite with fake-indexeddb
@@ -1100,7 +1093,7 @@ class UserService {
 - **Database Management**: Connection lifecycle, schema validation, version management
 - **Query System**: SQL-like operators (eq, gt, gte, lt, lte, between, in_, not, and, or)
 - **Transaction Management**: Promise-based API with automatic lifecycle handling
-- **Migration System**: Automatic schema evolution, dry-run validation, rollback support
+- **Migration System**: Automatic schema evolution with dry-run validation
 - **Type Safety**: Full TypeScript support with strict type checking
 
 ---
